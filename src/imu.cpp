@@ -18,7 +18,6 @@
 #include <string>
 #include <sstream>
 #include <stdexcept>
-#include <cstdlib>
 #include <boost/assert.hpp>
 
 extern "C" {
@@ -348,7 +347,7 @@ std::map <std::string, std::string> Imu::Info::toMap() const {
 
 uint16_t Imu::Info::getModelNumber() const {
   // Simply convert the first contiguous group of numbers into an int
-  int modelInt = atoi(modelNumber.c_str());
+  int modelInt = std::stoi(modelNumber.c_str());
   // If cannot convert, default to the -25 (6324)
   if (!modelInt)
   {
