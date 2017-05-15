@@ -347,10 +347,12 @@ std::map <std::string, std::string> Imu::Info::toMap() const {
 
 uint16_t Imu::Info::getModelNumber() const {
   // Simply convert the first contiguous group of numbers into an int
-  int modelInt = std::stoi(modelNumber.c_str());
-  // If cannot convert, default to the -25 (6324)
-  if (!modelInt)
-  {
+  int modelInt;
+  try {
+    modelInt = std::stoi(modelNumber);
+  }
+  catch (const std::invalid_argument &ex) {
+    // If cannot convert, default to the -25 (6324)
     modelInt = 6324;
   }
   return static_cast<uint16_t>(modelInt);
